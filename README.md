@@ -64,7 +64,7 @@ The Consensus Criteria categorize safety flags into Green, Yellow, and Red, prov
 
 ## Analysis Workflow
 
-1. **Data Filtering:** The analysis is restricted to the first 72 hours of intubation and only considers data recorded during business hours (8am-5pm). This analysis is done using the COVID DataMart for the period starting March 1, 2020 to March 31, 2023.
+1. **Data Filtering:** The analysis is restricted to the first 72 hours of intubation and only considers data recorded during business hours (8am-5pm). This analysis is done using the CLIF-1.0 data format constructed using the COVID DataMart at University of Chicago. Time period under consideration is March 1, 2020 to March 31, 2023.
 
 2. **Criteria Application:** Each encounter is evaluated against the Patel, TEAM, and Consensus Criteria (Green, Yellow, Red).
 
