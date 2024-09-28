@@ -76,3 +76,16 @@ The Consensus Criteria categorize safety flags into Green, Yellow, and Red, prov
    - Heatmaps to identify patterns in criteria satisfaction across encounters.
 
 5. **Outcome Evaluation:** Encounters are assessed for eligibility for mobilization based on the criteria, and the results are summarized.
+
+
+
+
+## Environment setup
+```
+python3 -m venv .mortality_model
+source .mobilization/bin/activate
+# Install Jupyter and IPykernel
+pip install jupyter ipykernel
+# Register the virtual environment as a kernel for Jupyter
+python -m ipykernel install --user --name=.mobilization --display-name="Python (mobilization)"
+```
