@@ -4,6 +4,29 @@
 
 The primary objective of this project is to determine the windows of opportunity for safely mobilizing patients on ventilators within the first 72 hours of intubation, during business hours (8am-5pm). The analysis is guided by two established criteria sets, *Patel et al.* and *TEAM Study*, as well as a consensus criteria approach, which includes Green, Yellow, and Red safety flags.
 
+## Configuration
+
+1. Navigate to the `config/` directory.
+2. Rename `config_template.yml` to `config.yml` (for YAML) or `config_template.json` to `config.json` (for JSON).
+3. Update the `config.yml` or `config.json` with site-specific settings.
+
+```bash
+cp config/config_template.yml config/config.yml
+# or for JSON
+cp config/config_template.json config/config.json
+
+
+## Environment setup
+```
+python3 -m venv .mortality_model
+source .mobilization/bin/activate
+# Install Jupyter and IPykernel
+pip install jupyter ipykernel
+# Register the virtual environment as a kernel for Jupyter
+python -m ipykernel install --user --name=.mobilization --display-name="Python (mobilization)"
+```
+
+
 ## Criteria for Safe Therapy
 
 ### 1. Patel et al. Criteria
@@ -77,15 +100,3 @@ The Consensus Criteria categorize safety flags into Green, Yellow, and Red, prov
 
 5. **Outcome Evaluation:** Encounters are assessed for eligibility for mobilization based on the criteria, and the results are summarized.
 
-
-
-
-## Environment setup
-```
-python3 -m venv .mortality_model
-source .mobilization/bin/activate
-# Install Jupyter and IPykernel
-pip install jupyter ipykernel
-# Register the virtual environment as a kernel for Jupyter
-python -m ipykernel install --user --name=.mobilization --display-name="Python (mobilization)"
-```
