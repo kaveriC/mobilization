@@ -4,21 +4,37 @@
 
 The primary objective of this project is to determine the windows of opportunity for safely mobilizing patients on ventilators within the first 72 hours of intubation, during business hours (8am-5pm). The analysis is guided by two established criteria sets, *Patel et al.* and *TEAM Study*, as well as a consensus criteria approach, which includes Green, Yellow, and Red safety flags.
 
+
+## Required CLIF tables and fields
+
+The following tables are required:
+1. **patient**: `patient_id`, `race_category`, `ethnicity_category`, `sex_category`
+2. **hospitalization**: `patient_id`, `hospitalization_id`, `admission_dttm`, `discharge_dttm`, `age_at_admission`
+3. **vitals**: `hospitalization_id`, `recorded_dttm`, `vital_category`, `vital_value`
+   - `vital_category` = 'heart_rate', 'resp_rate', 'sbp', 'dbp', 'map', 'resp_rate', 'spo2'
+4. **labs**: `hospitalization_id`, `lab_result_dttm`, `lab_category`, `lab_value`
+   - `lab_category` = 'lactate'
+5. **medication_admin_continuous**: `hospitalization_id`, `admin_dttm`, `med_name`, `med_category`, `med_dose`, `med_dose_unit`
+   - `med_category` = "norepinephrine", "epinephrine", "phenylephrine", "vasopressin", "dopamine", "angiotensin", "nicardipine", "nitroprusside", "clevidipine", "cisatracurium"
+6. **respiratory_support**: `hospitalization_id`, `recorded_dttm`, `device_category`, `mode_category`, `tracheostomy`, `fio2_set`, `lpm_set`, `resp_rate_set`, `peep_set`, `resp_rate_obs`
+
+## Cohort Identification 
+
+The study period is from March 1, 2020, to March 31, 2022. The cohort consists of patients who were placed on invasive ventilation at any point during their hospitalization within this time period. Encounters were excluded from the analysis based on the following criteria:
+- Encounters that were intubated for less than 2 hours
+- Encounters that received a tracheostomy within 72 hours of their first intubation
+- Encounters that received Cisatracurium at any point in the first 72 hours
+
 ## Configuration
 
 1. Navigate to the `config/` directory.
 2. Rename `config_template.yml` to `config.yml` (for YAML) or `config_template.json` to `config.json` (for JSON).
 3. Update the `config.yml` or `config.json` with site-specific settings.
 
-```bash
-cp config/config_template.yml config/config.yml
-# or for JSON
-cp config/config_template.json config/config.json
-
 
 ## Environment setup
 ```
-python3 -m venv .mortality_model
+python3 -m venv .mobilization
 source .mobilization/bin/activate
 # Install Jupyter and IPykernel
 pip install jupyter ipykernel
@@ -85,18 +101,4 @@ The Consensus Criteria categorize safety flags into Green, Yellow, and Red, prov
   - IV therapy for hypertensive emergency (SBP > 200 mm Hg or MAP > 110 mm Hg with specific medications)
   - Heart rate > 150 bpm or < 40 bpm
 
-## Analysis Workflow
-
-1. **Data Filtering:** The analysis is restricted to the first 72 hours of intubation and only considers data recorded during business hours (8am-5pm). This analysis is done using the CLIF-1.0 data format constructed using the COVID DataMart at University of Chicago. Time period under consideration is March 1, 2020 to March 31, 2023.
-
-2. **Criteria Application:** Each encounter is evaluated against the Patel, TEAM, and Consensus Criteria (Green, Yellow, Red).
-
-3. **Criteria Satisfaction:** For each encounter, the percentage of business hours where the criteria are met is calculated.
-
-4. **Visualization:** Various visualizations are generated to explore the data, including:
-   - Time series plots to show when criteria are met over time.
-   - Histograms showing the distribution of encounters meeting each criterion.
-   - Heatmaps to identify patterns in criteria satisfaction across encounters.
-
-5. **Outcome Evaluation:** Encounters are assessed for eligibility for mobilization based on the criteria, and the results are summarized.
 
